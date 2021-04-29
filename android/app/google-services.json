@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "671626066252",
+    "firebase_url": "https://hello-farmer-1.firebaseio.com",
+    "project_id": "hello-farmer-1",
+    "storage_bucket": "hello-farmer-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:671626066252:android:880076dc6bad20a1f8b7e9",
+        "android_client_info": {
+          "package_name": "com.example.hellofarmer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "671626066252-phcg19n1969iaa0gdei7v2e9gsqnqik2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6ryGSYBHqpL2Ck08TfMdUtdlnvyxI3Dk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "671626066252-phcg19n1969iaa0gdei7v2e9gsqnqik2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
