@@ -10,7 +10,6 @@ class ScreenWrapper extends StatefulWidget {
 }
 
 class _ScreenWrapperState extends State<ScreenWrapper> {
-  bool isLoggedIn = false;
   Auth _auth = new Auth();
   @override
   Widget build(BuildContext context) {
