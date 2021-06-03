@@ -1,13 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hellofarmer/homeUi/homeComponent.dart';
 import 'package:hellofarmer/services/auth.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  User user;
+  User? user;
 
   @override
-  HomeScreen({Key key, this.user}) : super(key: key);
+  HomeScreen({Key? key, this.user}) : super(key: key);
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -16,23 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var initIndex = 0;
   Auth _auth = new Auth();
   List<Widget> screens = [
-    Center(
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Text(
-          'Sorry for inconvenience. We are working on it :)',
-          style: TextStyle(
-            fontSize: 25,
-            foreground: Paint()
-              ..shader = LinearGradient(
-                colors: <Color>[Colors.cyanAccent, Colors.purpleAccent],
-              ).createShader(
-                Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
-              ),
-          ),
-        ),
-      ),
-    ),
+    Home(),
     Center(
       child: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -75,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 0, 6, 12),
         title: Text(
-          widget.user.displayName ?? widget.user.email.split('@')[0],
+          widget.user!.displayName ?? widget.user!.email!.split('@')[0],
           style: TextStyle(
             fontSize: 25,
             foreground: Paint()

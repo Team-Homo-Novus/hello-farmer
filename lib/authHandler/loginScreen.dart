@@ -4,10 +4,10 @@ import 'package:hellofarmer/services/auth.dart';
 
 // ignore: must_be_immutable
 class LoginScreen extends StatefulWidget {
-  Function tglLogin;
-  Function authFun;
+  Function? tglLogin;
+  Function? authFun;
   @override
-  LoginScreen({Key key, this.tglLogin, this.authFun}) : super(key: key);
+  LoginScreen({Key? key, this.tglLogin, this.authFun}) : super(key: key);
   _LoginScreenState createState() => _LoginScreenState();
 }
 
@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.emailAddress,
                             style: TextStyle(color: Colors.white60),
                             validator: (value) {
-                              if (!value.contains('@') ||
+                              if (!value!.contains('@') ||
                                   !value.contains('.')) {
                                 return 'Please enter valid email';
                               } else
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             keyboardType: TextInputType.visiblePassword,
                             style: TextStyle(color: Colors.white60),
                             validator: (value) {
-                              if (value.length < 8) {
+                              if (value!.length < 8) {
                                 return 'Please enter valid password';
                               } else
                                 return null;
@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton.icon(
                             onPressed: () async {
-                              if (_formkey.currentState.validate()) {
+                              if (_formkey.currentState!.validate()) {
                                 setState(() {
                                   isloaded = false;
                                 });

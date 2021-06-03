@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class ErrorScreen extends StatelessWidget {
-  String errorMsg;
+  String? errorMsg;
   ErrorScreen({this.errorMsg});
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,16 @@ class ErrorScreen extends StatelessWidget {
           SizedBox(
             width: double.infinity,
           ),
-          Icon(Icons.dangerous, size: 50, color: Colors.redAccent),
+          Icon(
+            Icons.dangerous,
+            size: 50,
+            color: Colors.redAccent,
+          ),
           Padding(
             padding: const EdgeInsets.all(30.0),
             child: Center(
               child: Text(
-                errorMsg,
+                errorMsg!,
                 style: TextStyle(
                   fontSize: 25,
                   color: Colors.redAccent,

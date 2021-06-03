@@ -3,14 +3,14 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'logging.dart';
 
 class Auth {
-  FirebaseAuth _auth;
+  late FirebaseAuth _auth;
   Logger _logger = new Logger();
-  Stream userAuthStream;
+  Stream? userAuthStream;
   Auth() {
     _auth = FirebaseAuth.instance;
     userAuthStream = _auth.authStateChanges();
   }
-  dynamic signInWithEmailPass({email, pass}) async {
+  dynamic signInWithEmailPass({required email, required pass}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
@@ -21,21 +21,22 @@ class Auth {
     }
   }
 
-  Future createNewUser({email, pass}) async {
+  Future createNewUser({required email, required pass}) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: pass);
     } on FirebaseAuthException catch (e) {
       _logger.logError(error: e.code.toString());
       throw e.code;
     } catch (e) {
-      throw e.code.toString();
+      throw e.toString();
     }
   }
 
   Future<String> signInWithGoogle() async {
     var user;
     final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAccount? googleSignInAccount =
+        await googleSignIn.signIn();
     if (googleSignInAccount != null) {
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
@@ -48,7 +49,7 @@ class Auth {
       } on FirebaseAuthException catch (e) {
         return e.code.toString();
       } catch (e) {
-        return e.code.toString();
+        return e.toString();
       }
     }
 

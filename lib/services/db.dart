@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Db {
   FirebaseFirestore dbHandler = FirebaseFirestore.instance;
-  User user;
+  User? user;
   Db({this.user});
 
   Stream getAllChannels() async* {

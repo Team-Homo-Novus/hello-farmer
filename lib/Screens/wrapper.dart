@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hellofarmer/Screens/loader.dart';
 import 'package:hellofarmer/authHandler/loginScreen.dart';
@@ -14,7 +15,7 @@ class _ScreenWrapperState extends State<ScreenWrapper> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: StreamBuilder<Object>(
+      child: StreamBuilder<Object?>(
           stream: _auth.userAuthStream,
           // ignore: missing_return
           builder: (context, snapshot) {
@@ -23,7 +24,7 @@ class _ScreenWrapperState extends State<ScreenWrapper> {
             } else if (snapshot.data == null) {
               return LoginScreen();
             } else
-              return HomeScreen(user: snapshot.data);
+              return HomeScreen(user: snapshot.data as User?);
           }),
     );
   }
