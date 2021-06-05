@@ -7,6 +7,7 @@ class LoadingScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 0, 6, 12),
       body: Center(
+        widthFactor: double.maxFinite,
         child: SpinKitWave(
           color: Colors.deepPurpleAccent,
         ),

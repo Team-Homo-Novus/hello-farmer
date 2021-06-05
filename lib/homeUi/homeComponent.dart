@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hellofarmer/Screens/errorScreen.dart';
 import 'package:hellofarmer/Screens/loader.dart';
+import 'package:hellofarmer/services/db.dart';
 import 'package:hellofarmer/services/mlApi.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  var user;
+  Home({required this.user, Key? key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -53,10 +56,12 @@ class _HomeState extends State<Home> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Container(
-                  decoration: BoxDecoration(border: Border.all()),
+              Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.cyanAccent, width: 2),
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
                   child: _image == null
                       ? Image.asset(
                           'assets/Images/placeholder.gif',
@@ -133,7 +138,6 @@ class _HomeState extends State<Home> {
               SizedBox(height: 20),
               ElevatedButton.icon(
                 onPressed: () async {
-                  //TODO:predictionApi
                   if (_image != null) {
                     try {
                       setState(() {
@@ -145,23 +149,39 @@ class _HomeState extends State<Home> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              backgroundColor: Colors.grey,
+                              backgroundColor: Colors.grey[800],
                               title: Text(
-                                "Results are ready!",
+                                'Results',
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  fontSize: 25,
+                                  foreground: Paint()
+                                    ..shader = LinearGradient(
+                                      colors: <Color>[
+                                        Colors.cyanAccent,
+                                        Colors.purpleAccent
+                                      ],
+                                    ).createShader(
+                                      Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                                    ),
                                 ),
                               ),
                               content: Text(
                                 'result : ${_result["result"]}\n\nconfidence : ${_result["confidence"]}',
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: _result["confidence"] <= 0.6
+                                      ? Colors.redAccent
+                                      : _result["confidence"] <= 0.7
+                                          ? Colors.amberAccent
+                                          : _result["confidence"] <= 0.9
+                                              ? Colors.blueAccent
+                                              : Colors.greenAccent,
                                 ),
                               ),
                               actions: [
                                 TextButton(
-                                  onPressed: () {
-                                    //TODO: Implement db sync
+                                  onPressed: () async {
+                                    Db _db = new Db(user: widget.user);
+                                    await _db.addPredsToDb([_result]);
                                     Navigator.pop(context);
                                   },
                                   child: Text('Sync to DB'),

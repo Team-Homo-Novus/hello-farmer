@@ -169,10 +169,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         isloaded = false;
                       });
                       authMsg = await _auth.signInWithGoogle();
-                      setState(() {
-                        isloaded = true;
-                        authMsg = authMsg;
-                      });
+                      if (authMsg != 'Success')
+                        setState(() {
+                          isloaded = true;
+                          authMsg = authMsg;
+                        });
                     },
                     icon: Image.asset(
                       'assets/Icons/google.png',

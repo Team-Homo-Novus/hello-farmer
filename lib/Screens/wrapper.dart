@@ -24,7 +24,7 @@ class _ScreenWrapperState extends State<ScreenWrapper> {
             } else if (snapshot.data == null) {
               return LoginScreen();
             } else
-              return HomeScreen(user: snapshot.data as User?);
+              return HomeScreen(user: snapshot.data as User);
           }),
     );
   }
