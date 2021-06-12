@@ -67,31 +67,71 @@ class _ResultScreenState extends State<ResultScreen> {
               return Column(
                 children: listItems
                     .map(
-                      (data) => Container(
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.grey[700],
-                            borderRadius: BorderRadius.circular(5)),
-                        child: ListTile(
-                          minVerticalPadding: 5,
-                          leading: Icon(
-                            Icons.bug_report_sharp,
-                            color: data["confidence"] <= 0.6
-                                ? Colors.redAccent
-                                : data["confidence"] <= 0.7
-                                    ? Colors.amberAccent
-                                    : data["confidence"] <= 0.9
-                                        ? Colors.blueAccent
-                                        : Colors.greenAccent,
-                            size: 30,
-                          ),
-                          title: Text(
-                            "Confidence : " + data["confidence"].toString(),
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            'Result : ${data["result"]}\nTimestamp : ${readTimestamp(data["ts"].toInt())}',
-                            style: TextStyle(color: Colors.white),
+                      (data) => InkWell(
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  backgroundColor: Colors.grey[800],
+                                  title: Text(
+                                    'Solution',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      foreground: Paint()
+                                        ..shader = LinearGradient(
+                                          colors: <Color>[
+                                            Colors.cyanAccent,
+                                            Colors.purpleAccent
+                                          ],
+                                        ).createShader(
+                                          Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+                                        ),
+                                    ),
+                                  ),
+                                  content: Text(
+                                    data!['solution'] ??
+                                        'No solution in DB, Maybe these are older results',
+                                    style: TextStyle(
+                                        fontSize: 16, color: Colors.white70),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text('Okie dokie'),
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: Colors.grey[700],
+                              borderRadius: BorderRadius.circular(5)),
+                          child: ListTile(
+                            minVerticalPadding: 5,
+                            leading: Icon(
+                              Icons.bug_report_sharp,
+                              color: data["confidence"] <= 0.6
+                                  ? Colors.redAccent
+                                  : data["confidence"] <= 0.7
+                                      ? Colors.amberAccent
+                                      : data["confidence"] <= 0.9
+                                          ? Colors.blueAccent
+                                          : Colors.greenAccent,
+                              size: 30,
+                            ),
+                            title: Text(
+                              "Confidence : " + data["confidence"].toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              'Result : ${data["result"]}\nTimestamp : ${readTimestamp(data["ts"].toInt())}',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
